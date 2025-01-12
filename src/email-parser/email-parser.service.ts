@@ -18,6 +18,7 @@ export class EmailParserService {
   }
 
   update(id: number, updateEmailParserDto: UpdateEmailParserDto) {
+    console.log(updateEmailParserDto);
     return `This action updates a #${id} emailParser`;
   }
 

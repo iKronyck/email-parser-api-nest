@@ -9,20 +9,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Configurar el repositorio
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Configurar Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22.4.1' # Cambia a la versión de Node.js que uses
+          node-version: '22.4.1'
 
-      # Instalar dependencias
       - name: Install dependencies
         run: npm install
 
-      # Ejecutar el linter
       - name: Run linter
         run: npx eslint . --ext .ts

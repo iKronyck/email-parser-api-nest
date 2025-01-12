@@ -5,6 +5,7 @@ import { UpdateEmailParserDto } from './dto/update-email-parser.dto';
 @Injectable()
 export class EmailParserService {
   create(createEmailParserDto: CreateEmailParserDto) {
+    console.log(createEmailParserDto);
     return 'This action adds a new emailParser';
   }
 

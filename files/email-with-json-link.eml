@@ -1,13 +1,12 @@
-
 MIME-Version: 1.0
-Date: Mon, 13 Jan 2025 01:55:14 -0600
-Message-ID: <CAOfcD9xCK_ZOeU3Ok9Z8TrA8qHbmsxnpsxX5fLA3R=3vAd8O3A@mail.gmail.com>
-Subject: 
+Date: Mon, 13 Jan 2025 05:02:14 -0600
+Message-ID: <CAOfcD9yru-iqd8X_Dvs05OXXC1vMFMHCAojpTy4j08px+bKOpA@mail.gmail.com>
+Subject: Link to JSON API
 From: Israel Alfaro <israel.devalfaro@gmail.com>
 To: Elizabeth Guzman <eliguzmancl@gmail.com>
-Content-Type: multipart/alternative; boundary="000000000000bdd29e062b91c35d"
+Content-Type: multipart/alternative; boundary="000000000000831c43062b94602f"
 
---000000000000bdd29e062b91c35d
+--000000000000831c43062b94602f
 Content-Type: text/plain; charset="UTF-8"
 
 Hello Elizabeth,
@@ -15,14 +14,16 @@ Hello Elizabeth,
 I hope you are well. Here is the link to the JSON. Please test the API, and
 if you have any feedback, let me know. Thanks!
 
-https://raw.githubusercontent.com/aws/aws-lambda-go/refs/heads/main/events/testdata/ses-sns-event.json
+https://raw.githubusercontent.com/softEsteban/testing-files/main/ses-sns-event.json
 
---000000000000bdd29e062b91c35d
+--000000000000831c43062b94602f
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr">Hello Elizabeth,<br><br>I hope you are well. Here is the l=
 ink to the JSON. Please test the API, and if you have any feedback, let me =
-know. Thanks!<br><br><a href=3D"https://raw.githubusercontent.com/aws/aws-lambda-go/refs/heads/main/events/testdata/ses-sns-event.json">https://raw.githubusercontent.com/aws/aws-lambda-go/refs/heads/main/events/testdata/ses-sns-event.json</a><br><br></div>
+know. Thanks!<br><br><a href=3D"https://raw.githubusercontent.com/softEsteb=
+an/testing-files/main/ses-sns-event.json">https://raw.githubusercontent.com=
+/softEsteban/testing-files/main/ses-sns-event.json</a></div>
 
---000000000000bdd29e062b91c35d--
+--000000000000831c43062b94602f--

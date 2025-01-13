@@ -1,99 +1,122 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# Email Parser API
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This API, developed with [NestJS](https://nestjs.com/), allows parsing emails to extract structured information. It uses the `mailparser` library to decompose emails and provides endpoints to upload, analyze, and retrieve data from emails in structured formats.
 
-## Project setup
+## Important Libraries
 
-```bash
-$ npm install
+- **NestJS**: A framework for building scalable server-side applications.
+- **Mailparser**: A library for parsing email messages.
+- **Axios**: A promise-based HTTP client for the browser and Node.js.
+- **Class-validator**: A library for validation using TypeScript decorators.
+- **Class-transformer**: A library for transforming plain objects into class instances using decorators.
+
+## Project Structure
+
+```plaintext
+email-parser-api-nest/
+├── src/
+│   ├── app.module.ts          # Root module of the application
+│   ├── main.ts                # Entry point of the application
+│   ├── email-parser/
+│   │   ├── email-parser.module.ts     # Module for email parsing
+│   │   ├── email-parser.controller.ts # Controller for email parsing endpoints
+│   │   ├── email-parser.service.ts    # Service with the business logic for email parsing
+│   ├── records/
+│   │   ├── records.module.ts          # Module for handling records
+│   │   ├── records.controller.ts      # Controller for records endpoints
+│   │   ├── records.service.ts         # Service with the business logic for records
+│   ├── common/
+│   │   ├── utils/
+│   │   │   ├── file.ts                # Utility functions for file handling
+│   │   │   ├── url.ts                 # Utility functions for URL handling
+│   │   ├── pipes/
+│   │       └── url-eml-validation.pipe.ts # Custom validation pipe for URLs and EML files
+├── test/
+│   ├── app.e2e-spec.ts       # End-to-end tests
+│   └── jest-e2e.json         # Jest configuration for e2e tests
+├── .env.template             # Template for environment variables
+├── .eslintrc.js              # ESLint configuration
+├── .prettierrc               # Prettier configuration
+├── nest-cli.json             # Nest CLI configuration
+├── package.json              # Project dependencies and scripts
+├── tsconfig.json             # TypeScript configuration
+└── README.md                 # Project documentation
 ```
 
-## Compile and run the project
+## APIs
 
-```bash
-# development
-$ npm run start
+### 1. Parse Email by URL
 
-# watch mode
-$ npm run start:dev
+**GET** `/email-parser`
 
-# production mode
-$ npm run start:prod
+- **Description**: Parses an email from a given URL or local file path.
+- **Query Parameters**:
+  - `url` (string): The URL or local file path of the email to be parsed.
+- **Response**:
+  - **Success**: Returns the parsed JSON data from the email.
+  - **Error**: Returns an error message if the email could not be parsed.
+
+### 2. Transform Record
+
+**POST** `/records`
+
+- **Description**: Transforms a record input into a structured output.
+- **Request Body**:
+  - `input` (Record): The input record to be transformed.
+- **Response**:
+  - **Success**: Returns the transformed record data.
+  - **Error**: Returns an error message if the record could not be transformed.
+
+## Installation
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone https://github.com/iKronyck/email-parser-api-nest.git
+   cd email-parser-api-nest
+   ```
+
+2. **Install dependencies**:
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables**:
+
+   Rename the `.env.template` file to `.env` and configure the variables as needed.
+
+4. **Start the application**:
+
+   - **Development**:
+
+     ```bash
+     npm run start:dev
+     ```
+
+   - **Production**:
+
+     ```bash
+     npm run build
+     npm run start:prod
+     ```
+
+## GitHub Workflow
+
+This project uses GitHub Actions for continuous integration. The workflow is defined in [`.github/workflows/pr-linter.yml`](.github/workflows/pr-linter.yml) and runs on every pull request to ensure code quality by running ESLint.
+
+## Commitlint
+
+This project uses `commitlint` to enforce conventional commit messages. The configuration is defined in [`.commitlintrc`](.commitlintrc). The commit messages should follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
+
+### Example Commit Message
+
 ```
-
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+feat(email-parser): add support for parsing email attachments
 ```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is licensed under the MIT License.

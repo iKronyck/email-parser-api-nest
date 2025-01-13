@@ -14,7 +14,7 @@ Hello Elizabeth,
 I hope you are well. Here is the link to the JSON. Please test the API, and
 if you have any feedback, let me know. Thanks!
 
-https://raw.githubusercontent.com/iKronyck/email-parser-api-nest/refs/heads/feature/the-real-challenge/files/email-with-json-attached.eml
+https://raw.githubusercontent.com/aws/aws-lambda-go/refs/heads/main/events/testdata/ses-sns-event.json
 
 --000000000000bdd29e062b91c35d
 Content-Type: text/html; charset="UTF-8"
@@ -22,10 +22,6 @@ Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr">Hello Elizabeth,<br><br>I hope you are well. Here is the l=
 ink to the JSON. Please test the API, and if you have any feedback, let me =
-know. Thanks!<br><br><a href=3D"https://raw.githubusercontent.com/iKronyck/=
-email-parser-api-nest/refs/heads/feature/the-real-challenge/files/email-wit=
-h-json-attached.eml">https://raw.githubusercontent.com/iKronyck/email-parse=
-r-api-nest/refs/heads/feature/the-real-challenge/files/email-with-json-atta=
-ched.eml</a><br><br></div>
+know. Thanks!<br><br><a href=3D"https://raw.githubusercontent.com/aws/aws-lambda-go/refs/heads/main/events/testdata/ses-sns-event.json">https://raw.githubusercontent.com/aws/aws-lambda-go/refs/heads/main/events/testdata/ses-sns-event.json</a><br><br></div>
 
 --000000000000bdd29e062b91c35d--

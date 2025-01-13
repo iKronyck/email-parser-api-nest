@@ -14,77 +14,78 @@ const urlRegex = /<a[^>]+href="([^"]+)"/;
 
 @Injectable()
 export class EmailParserService {
-  private async processParsedData(parsedEmail: any) {
-    if (parsedEmail?.attachments && parsedEmail.attachments.length > 0) {
-      const firstAttachment = parsedEmail.attachments[0];
+  private async processParsedData(emailData: any) {
+    try {
+      if (emailData.attachments && emailData.attachments.length > 0) {
+        const attachment = emailData.attachments[0];
 
-      if (Buffer.isBuffer(firstAttachment.content)) {
-        try {
-          const jsonContent = JSON.parse(firstAttachment.content.toString());
-          return jsonContent;
-        } catch (error) {
+        if (Buffer.isBuffer(attachment.content)) {
+          try {
+            const parsedJson = JSON.parse(attachment.content.toString());
+            return parsedJson;
+          } catch (parseError) {
+            throw new BadRequestException(
+              `Failed to parse JSON content from the attachment: ${parseError?.message}`,
+            );
+          }
+        } else {
           throw new BadRequestException(
-            `Unable to parse the JSON content in the attachment: ${error}`,
+            `The content of the attachment is not valid JSON data.`,
           );
         }
       } else {
         throw new BadRequestException(
-          'The first attachment does not contain valid JSON data.',
+          `The email does not contain any attachments.`,
         );
       }
+    } catch (attachmentError) {
+      console.error('Error handling attachment:', attachmentError);
     }
 
     try {
-      const hasHTML = parsedEmail.html;
+      const urlMatch = emailData.html.match(urlRegex);
 
-      let match = hasHTML
-        ? parsedEmail.html?.match(urlRegex)
-        : parsedEmail.headers;
-
-      if (!hasHTML) {
-        if (match.get('https')) {
-          match = ['', `https:${match.get('https')}`];
-        } else {
-          const obj: { [key: string]: string } = {};
-          match.forEach((value, key) => {
-            obj[key] = value;
-          });
-          const cleanKey = Object.keys(obj)[0].replace(/[\r\n\s]+/g, '');
-          const jsonValue = JSON.parse(obj[Object.keys(obj)[0]]);
-
-          const result = {
-            [cleanKey]: jsonValue,
-          };
-          return result;
-        }
-      }
-
-      if (match && match[1]) {
-        const url = match[1];
+      if (urlMatch && urlMatch[1]) {
+        const extractedUrl = urlMatch[1];
+        const urlResponse = await axios.get(extractedUrl);
 
         try {
-          const urlData = await axios.get(url);
-          const jsonData = urlData.data;
-
-          if (typeof jsonData === 'object' && jsonData !== null) {
-            return jsonData;
+          const responseData = JSON.parse(JSON.stringify(urlResponse.data));
+          if (typeof responseData === 'object' && responseData !== null) {
+            return responseData;
+          } else {
+            try {
+              const fallbackResponse = await axios.get(urlResponse.data);
+              return fallbackResponse.data;
+            } catch (fallbackError) {
+              throw new BadRequestException(
+                `Failed to fetch data from the provided URL: ${fallbackError.message}`,
+              );
+            }
           }
-
-          const fallbackResponse = await axios.get(jsonData);
-          return fallbackResponse.data;
-        } catch (error) {
-          throw new BadRequestException(
-            `Failed to fetch or process the data from the provided URL: ${error}`,
+        } catch (jsonParsingError) {
+          console.warn(
+            'Error processing JSON response data:',
+            jsonParsingError,
           );
+          try {
+            const secondaryResponse = await axios.get(urlResponse.data);
+            return secondaryResponse.data;
+          } catch (secondaryError) {
+            throw new BadRequestException(
+              `Unable to retrieve data from the provided URL: ${secondaryError.message}`,
+            );
+          }
         }
       } else {
         throw new BadRequestException(
-          'No valid URL found in the email content.',
+          `No valid URL was found in the email content`,
         );
       }
-    } catch (error) {
-      throw new InternalServerErrorException(
-        `An error occurred while processing the email content URL: ${error}`,
+    } catch (urlError) {
+      console.error('Error processing email URL:', urlError);
+      throw new BadRequestException(
+        `The email didn't contain a valid JSON attachment or URL.`,
       );
     }
   }
@@ -116,9 +117,12 @@ export class EmailParserService {
   }
 
   async parseEmail(url: string) {
+    console.log({ url });
     if (isURL(url)) {
+      console.log('paso url');
       return await this.parseEmailFromURL(url);
     } else if (isFile(url)) {
+      console.log('paso file');
       return await this.parseEmailFromFile(url);
     }
     throw new BadRequestException('The provided path does not exist');

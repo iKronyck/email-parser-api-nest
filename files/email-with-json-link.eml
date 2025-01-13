@@ -1,0 +1,31 @@
+MIME-Version: 1.0
+Date: Mon, 13 Jan 2025 01:55:14 -0600
+Message-ID: <CAOfcD9xCK_ZOeU3Ok9Z8TrA8qHbmsxnpsxX5fLA3R=3vAd8O3A@mail.gmail.com>
+Subject: 
+From: Israel Alfaro <israel.devalfaro@gmail.com>
+To: Elizabeth Guzman <eliguzmancl@gmail.com>
+Content-Type: multipart/alternative; boundary="000000000000bdd29e062b91c35d"
+
+--000000000000bdd29e062b91c35d
+Content-Type: text/plain; charset="UTF-8"
+
+Hello Elizabeth,
+
+I hope you are well. Here is the link to the JSON. Please test the API, and
+if you have any feedback, let me know. Thanks!
+
+https://raw.githubusercontent.com/iKronyck/email-parser-api-nest/refs/heads/feature/the-real-challenge/files/email-with-json-attached.eml
+
+--000000000000bdd29e062b91c35d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hello Elizabeth,<br><br>I hope you are well. Here is the l=
+ink to the JSON. Please test the API, and if you have any feedback, let me =
+know. Thanks!<br><br><a href=3D"https://raw.githubusercontent.com/iKronyck/=
+email-parser-api-nest/refs/heads/feature/the-real-challenge/files/email-wit=
+h-json-attached.eml">https://raw.githubusercontent.com/iKronyck/email-parse=
+r-api-nest/refs/heads/feature/the-real-challenge/files/email-with-json-atta=
+ched.eml</a><br><br></div>
+
+--000000000000bdd29e062b91c35d--

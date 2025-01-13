@@ -9,7 +9,6 @@ import { Readable } from 'node:stream';
 import axios from 'axios';
 import { isFile } from '../common/utils/file';
 import { isURL } from '../common/utils/url';
-// import { ParseEmailDto } from './dto/parse-email.dto';
 
 const urlRegex = /<a[^>]+href="([^"]+)"/;
 
@@ -36,7 +35,29 @@ export class EmailParserService {
     }
 
     try {
-      const match = parsedEmail.html?.match(urlRegex);
+      const hasHTML = parsedEmail.html;
+
+      let match = hasHTML
+        ? parsedEmail.html?.match(urlRegex)
+        : parsedEmail.headers;
+
+      if (!hasHTML) {
+        if (match.get('https')) {
+          match = ['', `https:${match.get('https')}`];
+        } else {
+          const obj: { [key: string]: string } = {};
+          match.forEach((value, key) => {
+            obj[key] = value;
+          });
+          const cleanKey = Object.keys(obj)[0].replace(/[\r\n\s]+/g, '');
+          const jsonValue = JSON.parse(obj[Object.keys(obj)[0]]);
+
+          const result = {
+            [cleanKey]: jsonValue,
+          };
+          return result;
+        }
+      }
 
       if (match && match[1]) {
         const url = match[1];

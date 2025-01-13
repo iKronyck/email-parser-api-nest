@@ -1,45 +1,15 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { EmailParserService } from './email-parser.service';
-import { CreateEmailParserDto } from './dto/create-email-parser.dto';
-import { UpdateEmailParserDto } from './dto/update-email-parser.dto';
+// import { EmlValidationPipe } from '../common/pipes/url-eml-validation.pipe';
+import { ParseEmailDto } from './dto/parse-email.dto';
 
 @Controller('email-parser')
 export class EmailParserController {
   constructor(private readonly emailParserService: EmailParserService) {}
 
-  @Post()
-  create(@Body() createEmailParserDto: CreateEmailParserDto) {
-    return this.emailParserService.create(createEmailParserDto);
-  }
-
   @Get()
-  findAll() {
-    return this.emailParserService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.emailParserService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateEmailParserDto: UpdateEmailParserDto,
-  ) {
-    return this.emailParserService.update(+id, updateEmailParserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.emailParserService.remove(+id);
+  parseEmailByURL(@Query() url: ParseEmailDto) {
+    const { url: localURL } = url;
+    return this.emailParserService.parseEmail(localURL);
   }
 }

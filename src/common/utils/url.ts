@@ -2,12 +2,7 @@ import { BadRequestException } from '@nestjs/common';
 
 export function verifyURL(value: string) {
   try {
-    const parsedUrl = new URL(value);
-    if (!parsedUrl.pathname.endsWith('.eml')) {
-      throw new BadRequestException(
-        "The URL doesn't point to a valid .eml file",
-      );
-    }
+    new URL(value);
     return true;
   } catch {
     throw new BadRequestException(
